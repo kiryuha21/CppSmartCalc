@@ -1,6 +1,0 @@
-# ninja log v5
-0	28	1691073398339066718	CMakeFiles/CPP3_SmartCalc_v2_0_1.dir/src/exampleModel.cpp.o	98516ab721542b05
-1	31	1691073398343066713	CMakeFiles/CPP3_SmartCalc_v2_0_1.dir/src/main.cpp.o	857e63dc8ca1afe8
-0	42	1691073398359066696	CMakeFiles/CPP3_SmartCalc_v2_0_1.dir/src/exampleController.cpp.o	1e7098293c1dacf2
-0	234	1691073398551066484	CMakeFiles/CPP3_SmartCalc_v2_0_1.dir/src/consoleView.cpp.o	3643ecd60ffa9247
-234	312	1691073398627066400	CPP3_SmartCalc_v2_0_1	7cd17f4aa25165aa
