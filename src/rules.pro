@@ -4,17 +4,15 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++17
 TARGET = SmartCalc2
+LIBS += -lgtest
 
 SOURCES += \
-    main.cpp \
-    consoleView.cpp \
-    exampleController.cpp \
-    exampleModel.cpp
+    model/PolishEvaluation.cpp \
+    tests/parsing_suite.cpp \
+    tests/tests_main.cpp
 
 HEADERS += \
-    consoleView.h \
-    exampleController.h \
-    exampleModel.h
+    model/PolishEvaluation.h
 
 #FORMS += \
 #    mainwindow.ui
