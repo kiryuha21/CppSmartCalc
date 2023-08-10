@@ -1,4 +1,4 @@
-#include <gtkmm.h>
+#include <clocale>
 
 #include "view/MainWindow.h"
 
@@ -14,6 +14,7 @@ int main(int argc, char** argv) {
   s21::MainWindow* mv;
   builder->get_widget_derived("main_window", mv);
 
+  std::setlocale(LC_NUMERIC, "C");
   auto res = app->run(*mv);
   delete mv;
   return res;

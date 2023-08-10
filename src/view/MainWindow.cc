@@ -37,17 +37,18 @@ void MainWindow::on_deposit_calc_button_clicked() { DepositView calc; }
 void MainWindow::on_graph_button_clicked() { GraphView graph; }
 
 bool MainWindow::on_entry_edited(GdkEventKey* key_event) {
-  if (key_event->keyval == GDK_KEY_equal) {
-    try {
-      std::string raw_input = expression_input_->get_text();
-      std::string pure_expression = raw_input.substr(0, raw_input.size() - 1);
-      std::replace(pure_expression.begin(), pure_expression.end(), '.', ',');
-      std::string res = std::to_string(controller_->evaluate(pure_expression));
-      std::replace(res.begin(), res.end(), ',', '.');
-      result_view_->get_buffer()->set_text(res);
-    } catch (std::logic_error& e) {
-      result_view_->get_buffer()->set_text(e.what());
-    }
+  if (key_event->keyval != GDK_KEY_equal) {
+    return true;
+  }
+
+  try {
+    std::string raw_input = expression_input_->get_text();
+    std::string pure_expression = raw_input.substr(0, raw_input.size() - 1);
+    std::string res = std::to_string(
+        controller_->evaluate(pure_expression, variable_input_->get_text()));
+    result_view_->get_buffer()->set_text(res);
+  } catch (std::logic_error& e) {
+    result_view_->get_buffer()->set_text(e.what());
   }
 
   return true;

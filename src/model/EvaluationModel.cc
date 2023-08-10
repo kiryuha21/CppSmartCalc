@@ -60,6 +60,10 @@ std::list<std::string> EvaluationModel::parse_line(const std::string& line) {
 }
 
 bool is_num(const std::string& lexem) {
+  if (lexem == "x") {
+    return true;
+  }
+
   size_t ptr = 0;
   try {
     std::stod(lexem, &ptr);
@@ -139,6 +143,30 @@ std::list<std::string> EvaluationModel::parse_to_polish() {
   return polished_;
 }
 
+double EvaluationModel::parse_variable(const std::string& str_x) const {
+  if (str_x.empty()) {
+    if (std::find(polished_.begin(), polished_.end(), "x") != polished_.end()) {
+      throw std::logic_error("Missing variable's value!");
+    }
+
+    return 0;
+  }
+
+  double res = 0;
+  size_t ptr = 0;
+  try {
+    res = std::stod(str_x, &ptr);
+  } catch (std::invalid_argument&) {
+    throw std::logic_error("Wrong variable format!");
+  }
+
+  if (ptr != str_x.size()) {
+    throw std::logic_error("Wrong variable format!");
+  }
+
+  return res;
+}
+
 double EvaluationModel::apply_binary(std::stack<double>& stack,
                                      const std::string& lexem) {
   double result;
@@ -197,30 +225,33 @@ double EvaluationModel::apply_prefix(std::stack<double>& stack,
   return result;
 }
 
-double EvaluationModel::apply_polish(double x) {
+double EvaluationModel::apply_polish(const std::string& str_x) const {
   double result = 0;
   std::stack<double> stack;
   for (const auto& lexem : polished_) {
     if (is_num(lexem)) {
       if (lexem == "x") {
-        result = x;
+        result = parse_variable(str_x);
       } else {
         result = std::stod(lexem);
       }
     } else if (is_binary(lexem)) {
       if (stack.size() < 2) {
-        throw std::logic_error("Error while applying polish notation(not enough operands)");
+        throw std::logic_error(
+            "Error while applying polish notation(not enough operands)");
       }
 
       result = apply_binary(stack, lexem);
     } else if (is_prefix(lexem)) {  // if prefix
       if (stack.empty()) {
-        throw std::logic_error("Error while applying polish notation(not enough arguments)");
+        throw std::logic_error(
+            "Error while applying polish notation(not enough arguments)");
       }
 
       result = apply_prefix(stack, lexem);
     } else {
-      throw std::logic_error("Error while applying polish notation(unknown operation)");
+      throw std::logic_error(
+          "Error while applying polish notation(unknown operation)");
     }
     stack.push(result);
   }
@@ -233,7 +264,8 @@ double EvaluationModel::apply_polish(double x) {
   stack.pop();
 
   if (!stack.empty()) {
-    throw std::logic_error("Error while applying polish notation(extra values)");
+    throw std::logic_error(
+        "Error while applying polish notation(extra values)");
   }
 
   return result;

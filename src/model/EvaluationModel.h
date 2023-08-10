@@ -14,7 +14,7 @@ class EvaluationModel {
  public:
   std::list<std::string> parse_line(const std::string& line);
   std::list<std::string> parse_to_polish();
-  double apply_polish(double x);
+  [[nodiscard]] double apply_polish(const std::string& str_x) const;
 
  private:
   enum Priorities { LOW_PRIORITY = 1, HIGH_PRIORITY, HIGHEST_PRIORITY };
@@ -30,6 +30,7 @@ class EvaluationModel {
   static int get_priority(const std::string& lexem) noexcept;
   void handle_binary(std::stack<std::string>& stack, const std::string& lexem);
 
+  [[nodiscard]] double parse_variable(const std::string& str_x) const;
   static double apply_binary(std::stack<double>& stack,
                              const std::string& lexem);
   static double apply_prefix(std::stack<double>& stack,
