@@ -3,13 +3,27 @@
 
 #include <gtkmm.h>
 
+#include "../controller/EvaluationController.h"
+#include "../controller/GraphController.h"
+
 namespace s21 {
 class GraphView : public Gtk::Window {
  public:
-  GraphView();
+  GraphView(BaseObjectType* obj, Glib::RefPtr<Gtk::Builder> const& builder,
+            const std::string& expression,
+            EvaluationController* eval_controller);
+  ~GraphView() override;
 
  private:
   Glib::RefPtr<Gtk::Builder> builder_;
+  std::string expression_;
+
+  Gtk::Entry* min_x_entry_ = nullptr;
+  Gtk::Entry* max_x_entry_ = nullptr;
+  Gtk::Entry* min_y_entry_ = nullptr;
+  Gtk::Entry* max_y_entry_ = nullptr;
+
+  GraphController* graph_controller_ = nullptr;
 };
 }  // namespace s21
 

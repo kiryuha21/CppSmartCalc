@@ -3,16 +3,6 @@
 #include <iostream>
 
 namespace s21 {
-bool EvaluationModel::is_solo_char(char sym) noexcept {
-  return sym == '+' || sym == '-' || sym == '/' || sym == '*' || sym == '(' ||
-         sym == ')' || tolower(sym) == 'x' || sym == '^';
-}
-
-bool EvaluationModel::has_prefix(const std::string& str,
-                                 const std::string& prefix) noexcept {
-  return prefix.size() <= str.size() && prefix == str.substr(0, prefix.size());
-}
-
 bool EvaluationModel::is_unary() const noexcept {
   return lexems_.empty() || lexems_.back() == "(";
 }
@@ -57,47 +47,6 @@ std::list<std::string> EvaluationModel::parse_line(const std::string& line) {
     }
   }
   return lexems_;
-}
-
-bool is_num(const std::string& lexem) {
-  if (lexem == "x") {
-    return true;
-  }
-
-  size_t ptr = 0;
-  try {
-    std::stod(lexem, &ptr);
-  } catch (std::invalid_argument&) {
-    return false;
-  }
-  return true;
-}
-
-bool EvaluationModel::is_prefix(const std::string& lexem) noexcept {
-  static std::vector<std::string> prefixes = {
-      "sin", "cos", "tan", "log", "sqrt", "ln", "asin", "acos", "atan", "~"};
-  return std::find(prefixes.begin(), prefixes.end(), lexem) != prefixes.end();
-}
-
-bool EvaluationModel::is_binary(const std::string& lexem) noexcept {
-  static std::vector<std::string> binaries = {"+", "*", "/", "-", "^", "mod"};
-  return std::find(binaries.begin(), binaries.end(), lexem) != binaries.end();
-}
-
-int EvaluationModel::get_priority(const std::string& lexem) noexcept {
-  if (lexem == "+" || lexem == "-") {
-    return LOW_PRIORITY;
-  }
-
-  if (lexem == "*" || lexem == "/" || lexem == "mod") {
-    return HIGH_PRIORITY;
-  }
-
-  if (lexem == "^") {
-    return HIGHEST_PRIORITY;
-  }
-
-  return 0;
 }
 
 void EvaluationModel::handle_binary(std::stack<std::string>& stack,
@@ -152,19 +101,7 @@ double EvaluationModel::parse_variable(const std::string& str_x) const {
     return 0;
   }
 
-  double res = 0;
-  size_t ptr = 0;
-  try {
-    res = std::stod(str_x, &ptr);
-  } catch (std::invalid_argument&) {
-    throw std::logic_error("Wrong variable format!");
-  }
-
-  if (ptr != str_x.size()) {
-    throw std::logic_error("Wrong variable format!");
-  }
-
-  return res;
+  return to_double(str_x);
 }
 
 double EvaluationModel::apply_binary(std::stack<double>& stack,
@@ -257,7 +194,7 @@ double EvaluationModel::apply_polish(const std::string& str_x) const {
   }
 
   if (stack.empty()) {
-    throw std::logic_error("IError while applying polish notation(no result)");
+    throw std::logic_error("Error while applying polish notation(no result)");
   }
 
   result = stack.top();

@@ -11,4 +11,8 @@ double EvaluationController::evaluate(const std::string& line,
   model_->parse_to_polish();
   return model_->apply_polish(str_x);
 }
+
+double EvaluationController::evaluate_cached(const std::string& str_x) const {
+  return model_->apply_polish(str_x);
+}
 }  // namespace s21

@@ -7,27 +7,20 @@
 #include <stack>
 #include <stdexcept>
 #include <string>
-#include <vector>
+
+#include "utils.h"
 
 namespace s21 {
 class EvaluationModel {
  public:
   std::list<std::string> parse_line(const std::string& line);
   std::list<std::string> parse_to_polish();
-  [[nodiscard]] double apply_polish(const std::string& str_x) const;
+  double apply_polish(const std::string& str_x) const;
 
  private:
-  enum Priorities { LOW_PRIORITY = 1, HIGH_PRIORITY, HIGHEST_PRIORITY };
-
-  static bool is_solo_char(char sym) noexcept;
-  static bool has_prefix(const std::string& str,
-                         const std::string& prefix) noexcept;
   [[nodiscard]] bool is_unary() const noexcept;
   size_t handle_lexem(const std::string& line, size_t index);
 
-  static bool is_prefix(const std::string& lexem) noexcept;
-  static bool is_binary(const std::string& lexem) noexcept;
-  static int get_priority(const std::string& lexem) noexcept;
   void handle_binary(std::stack<std::string>& stack, const std::string& lexem);
 
   [[nodiscard]] double parse_variable(const std::string& str_x) const;

@@ -14,7 +14,9 @@ add_executable(test
         src/model/EvaluationModel.h
         src/model/EvaluationModel.cc
         src/tests/tests_main.cc
-        src/tests/parsing_suite.cc)
+        src/tests/parsing_suite.cc
+        src/tests/calculation_suite.cc
+        src/tests/polish_notation_suite.cc)
 
 add_executable(app
         src/main.cc
@@ -29,7 +31,19 @@ add_executable(app
         src/controller/EvaluationController.cc
         src/controller/EvaluationController.h
         src/model/EvaluationModel.cc
-        src/model/EvaluationModel.h)
+        src/model/EvaluationModel.h
+        src/controller/GraphController.cc
+        src/controller/GraphController.h
+        src/model/GraphModel.cc
+        src/model/GraphModel.h
+        src/model/utils.cc
+        src/model/utils.h
+        src/model/utils.h
+        src/model/utils.cc
+        src/model/CreditModel.cc
+        src/model/CreditModel.h
+        src/controller/CreditController.cc
+        src/controller/CreditController.h)
 
 target_link_libraries(test gtest)
 target_link_libraries(app ${GTKMM_LIBRARIES})

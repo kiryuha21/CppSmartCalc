@@ -1,7 +1,6 @@
 #include "MainWindow.h"
 
 #include <iostream>
-
 namespace s21 {
 
 MainWindow::MainWindow(BaseObjectType* obj,
@@ -16,8 +15,6 @@ MainWindow::MainWindow(BaseObjectType* obj,
   builder_->get_widget("variable_input", variable_input_);
   builder_->get_widget("result_view", result_view_);
 
-  expression_input_->set_can_focus(true);
-
   credit_calc_button_->signal_clicked().connect(
       sigc::mem_fun(*this, &MainWindow::on_credit_calc_button_clicked));
   deposit_calc_button_->signal_clicked().connect(
@@ -30,11 +27,30 @@ MainWindow::MainWindow(BaseObjectType* obj,
 
 MainWindow::~MainWindow() { delete controller_; }
 
-void MainWindow::on_credit_calc_button_clicked() { CreditView calc; }
+void MainWindow::on_credit_calc_button_clicked() {
+  CreditView* credit = nullptr;
+  auto builder = Gtk::Builder::create_from_file("ui/credit.ui");
+  builder->get_widget_derived("credit_window", credit);
+}
 
-void MainWindow::on_deposit_calc_button_clicked() { DepositView calc; }
+void MainWindow::on_deposit_calc_button_clicked() {
+  DepositView* deposit = nullptr;
+  auto builder = Gtk::Builder::create_from_file("ui/deposit.ui");
+  builder->get_widget_derived("deposit_window", deposit);
+}
 
-void MainWindow::on_graph_button_clicked() { GraphView graph; }
+void MainWindow::on_graph_button_clicked() {
+  std::string raw_input = expression_input_->get_text();
+  try {
+    controller_->evaluate(raw_input, "0");
+
+    GraphView* graph = nullptr;
+    auto builder = Gtk::Builder::create_from_file("ui/graph.ui");
+    builder->get_widget_derived("graph_window", graph, raw_input, controller_);
+  } catch (std::logic_error& e) {
+    result_view_->get_buffer()->set_text(e.what());
+  }
+}
 
 bool MainWindow::on_entry_edited(GdkEventKey* key_event) {
   if (key_event->keyval != GDK_KEY_equal) {

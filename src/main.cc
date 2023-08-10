@@ -11,7 +11,7 @@ int main(int argc, char** argv) {
       Gdk::Screen::get_default(), css_provider_,
       GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
 
-  s21::MainWindow* mv;
+  s21::MainWindow* mv = nullptr;
   builder->get_widget_derived("main_window", mv);
 
   std::setlocale(LC_NUMERIC, "C");

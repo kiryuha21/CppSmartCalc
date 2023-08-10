@@ -22,8 +22,7 @@ TEST(parsing_suite, parse_wrong_unaries) {
   std::string line = "sin(10) cas(20)";
 
   EvaluationModel evaluation;
-  ASSERT_THROW(std::list<std::string> my_res = evaluation.parse_line(line),
-               std::invalid_argument);
+  ASSERT_THROW(evaluation.parse_line(line), std::logic_error);
 }
 
 TEST(parsing_suite, parse_correct_numbers) {
@@ -41,7 +40,6 @@ TEST(parsing_suite, parse_wrong_numbers) {
   std::string line = "15.a1";
 
   EvaluationModel evaluation;
-  ASSERT_THROW(std::list<std::string> my_res = evaluation.parse_line(line),
-               std::invalid_argument);
+  ASSERT_THROW(evaluation.parse_line(line), std::logic_error);
 }
 }  // namespace s21

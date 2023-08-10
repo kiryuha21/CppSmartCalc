@@ -9,8 +9,8 @@ class EvaluationController {
   EvaluationController();
   ~EvaluationController();
 
-  [[nodiscard]] double evaluate(const std::string& line,
-                                const std::string& str_x) const;
+  double evaluate(const std::string& line, const std::string& str_x) const;
+  double evaluate_cached(const std::string& str_x) const;
 
  private:
   EvaluationModel* model_ = nullptr;

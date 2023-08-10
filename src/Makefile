@@ -18,8 +18,6 @@ SRC_FILES = controller/*.cc \
 			model/*.cc \
 			view/*.cc \
 			main.cc
-TEST_FILES = tests/*.cc \
-			 model/*.cc
 BUILD_PATH = build
 
 CLANG_FORMAT = clang-format
@@ -38,7 +36,7 @@ run: build
 	./$(TARGET_PATH)/$(BUILD_TARGET)
 
 test: style build_path
-	$(CC) $(TEST_FILES) -o $(TARGET_PATH)/$(TEST_TARGET) $(GTEST_LIBS)
+	$(CC) $(SRC_FILES) -o $(TARGET_PATH)/$(TEST_TARGET) $(GTEST_LIBS)
 	./$(TARGET_PATH)/$(TEST_TARGET)
 
 clean:
