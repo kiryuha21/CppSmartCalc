@@ -7,7 +7,9 @@
 namespace s21 {
 class GraphController {
  public:
-  explicit GraphController(EvaluationController* controller);
+  explicit GraphController(EvaluationController* controller,
+                           const std::string& function, const int width,
+                           const int height);
   ~GraphController();
 
   void draw_plot_image(const std::string& min_x, const std::string& max_x,

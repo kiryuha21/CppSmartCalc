@@ -46,4 +46,4 @@ add_executable(app
         src/controller/CreditController.h)
 
 target_link_libraries(test gtest)
-target_link_libraries(app ${GTKMM_LIBRARIES})
+target_link_libraries(app ${GTKMM_LIBRARIES} boost_iostreams)

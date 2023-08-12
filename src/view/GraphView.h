@@ -15,6 +15,8 @@ class GraphView : public Gtk::Window {
   ~GraphView() override;
 
  private:
+  void on_plot_button_clicked();
+
   Glib::RefPtr<Gtk::Builder> builder_;
   std::string expression_;
 
@@ -22,6 +24,10 @@ class GraphView : public Gtk::Window {
   Gtk::Entry* max_x_entry_ = nullptr;
   Gtk::Entry* min_y_entry_ = nullptr;
   Gtk::Entry* max_y_entry_ = nullptr;
+
+  Gtk::Button* plot_button_ = nullptr;
+  Gtk::Image* graph_image_ = nullptr;
+  Gtk::Label* graph_label_ = nullptr;
 
   GraphController* graph_controller_ = nullptr;
 };

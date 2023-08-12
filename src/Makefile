@@ -1,14 +1,15 @@
 CC = g++ -std=c++17 -Wall -Werror -Wextra -Wuninitialized
 GTK_FLAGS = `pkg-config gtkmm-3.0 --cflags --libs`
 GTEST_LIBS = -lgtest
+BOOST_LIBS = -lboost_iostreams
 DELETE = rm -rf
-TEST_FLAGS =  -lgtest
 
 FIND_VALGRIND_ERRORS = grep --color=always -n "ERROR SUMMARY" $(VALGRIND_OUTPUT) | grep -v "0 errors from 0 contexts" || true
 FIND_VALGRIND_LEAKS = grep --color=always -n "definitely lost:" $(VALGRIND_OUTPUT) | grep -v "0 bytes in 0 blocks" || true
 VALGRIND = valgrind --log-file="$(VALGRIND_OUTPUT)" --track-origins=yes --trace-children=yes --leak-check=full --leak-resolution=med
 
 VALGRIND_OUTPUT = valgrind.txt
+PROGRAM_OUTPUTS = plot.png points.txt
 
 TARGET_PATH = build
 TEST_TARGET  = SmartCalcTests
@@ -18,6 +19,9 @@ SRC_FILES = controller/*.cc \
 			model/*.cc \
 			view/*.cc \
 			main.cc
+TEST_FILES = controller/*.cc \
+			 model/*.cc \
+			 tests/*.cc
 BUILD_PATH = build
 
 CLANG_FORMAT = clang-format
@@ -30,17 +34,17 @@ build_path:
 	mkdir -p $(TARGET_PATH)
 
 build: style build_path
-	$(CC) $(SRC_FILES) -o $(TARGET_PATH)/$(BUILD_TARGET) $(GTK_FLAGS)
+	$(CC) $(SRC_FILES) -o $(TARGET_PATH)/$(BUILD_TARGET) $(GTK_FLAGS) $(BOOST_LIBS)
 
 run: build
 	./$(TARGET_PATH)/$(BUILD_TARGET)
 
 test: style build_path
-	$(CC) $(SRC_FILES) -o $(TARGET_PATH)/$(TEST_TARGET) $(GTEST_LIBS)
+	$(CC) $(TEST_FILES) -o $(TARGET_PATH)/$(TEST_TARGET) $(GTEST_LIBS) $(BOOST_LIBS)
 	./$(TARGET_PATH)/$(TEST_TARGET)
 
 clean:
-	$(DELETE) $(TARGET_PATH)/$(TEST_TARGET) $(TARGET_PATH)/$(BUILD_TARGET) $(VALGRIND_OUTPUT)
+	$(DELETE) $(TARGET_PATH)/$(TEST_TARGET) $(TARGET_PATH)/$(BUILD_TARGET) $(VALGRIND_OUTPUT) $(PROGRAM_OUTPUTS)
 
 style: $(CLANG_FORMAT)
 

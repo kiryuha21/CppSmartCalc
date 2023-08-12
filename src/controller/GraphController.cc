@@ -2,8 +2,10 @@
 
 namespace s21 {
 
-GraphController::GraphController(s21::EvaluationController* controller) {
-  model_ = new GraphModel(controller);
+GraphController::GraphController(s21::EvaluationController* controller,
+                                 const std::string& function, const int width,
+                                 const int height) {
+  model_ = new GraphModel(controller, function, width, height);
 }
 
 GraphController::~GraphController() { delete model_; }
