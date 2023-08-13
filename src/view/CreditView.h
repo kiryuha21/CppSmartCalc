@@ -17,6 +17,7 @@ class CreditView : public Gtk::Window {
   Glib::RefPtr<Gtk::Builder> builder_;
   CreditController* controller_ = nullptr;
 
+  Gtk::Label* credit_label_ = nullptr;
   Gtk::RadioButton* annuity_radio_ = nullptr;
   Gtk::Button* calculate_button_ = nullptr;
 

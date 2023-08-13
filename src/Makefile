@@ -26,9 +26,27 @@ BUILD_PATH = build
 
 CLANG_FORMAT = clang-format
 
-.PHONY: all test clean style $(CLANG_FORMAT) $(VALGRIND)
+.PHONY: all install uninstall test clean style valgrind $(CLANG_FORMAT)
 
-all: test build run
+all: test build run dvi dist
+
+install: build
+	install ./$(TARGET_PATH)/$(BUILD_TARGET) /usr/local/bin
+	mkdir -p /usr/local/bin/ui
+	cp ui/* /usr/local/bin/ui
+
+uninstall:
+	$(DELETE) /usr/local/bin/ui
+	$(DELETE) /usr/local/bin/$(BUILD_TARGET)
+
+dvi: clean_dvi
+	doxygen Doxyfile
+	open docs/html/index.html
+
+dist: build
+	mv $(TARGET_PATH)/$(BUILD_TARGET) .
+	tar -czvf $(BUILD_TARGET).tgz $(BUILD_TARGET) ui/*
+	$(DELETE) $(BUILD_TARGET)
 
 build_path:
 	mkdir -p $(TARGET_PATH)
@@ -43,7 +61,10 @@ test: style build_path
 	$(CC) $(TEST_FILES) -o $(TARGET_PATH)/$(TEST_TARGET) $(GTEST_LIBS) $(BOOST_LIBS)
 	./$(TARGET_PATH)/$(TEST_TARGET)
 
-clean:
+clean_dvi:
+	$(DELETE) docs/*
+
+clean: clean_dvi
 	$(DELETE) $(TARGET_PATH)/$(TEST_TARGET) $(TARGET_PATH)/$(BUILD_TARGET) $(VALGRIND_OUTPUT) $(PROGRAM_OUTPUTS)
 
 style: $(CLANG_FORMAT)

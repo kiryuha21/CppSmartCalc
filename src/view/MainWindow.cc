@@ -1,6 +1,5 @@
 #include "MainWindow.h"
 
-#include <iostream>
 namespace s21 {
 
 MainWindow::MainWindow(BaseObjectType* obj,
@@ -60,9 +59,10 @@ bool MainWindow::on_entry_edited(GdkEventKey* key_event) {
   try {
     std::string raw_input = expression_input_->get_text();
     std::string pure_expression = raw_input.substr(0, raw_input.size() - 1);
-    std::string res = std::to_string(
-        controller_->evaluate(pure_expression, variable_input_->get_text()));
-    result_view_->get_buffer()->set_text(res);
+
+    double res =
+        controller_->evaluate(pure_expression, variable_input_->get_text());
+    result_view_->get_buffer()->set_text(double_to_precised_string(res));
   } catch (std::logic_error& e) {
     result_view_->get_buffer()->set_text(e.what());
   }

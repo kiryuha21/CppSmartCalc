@@ -26,10 +26,11 @@ void CreditModel::calculate_differentiated() noexcept {
                       (amount_ - base_monthly_payment * i) * monthly_rate;
   }
   overpayment_ = total_payment_ - amount_;
-  std::stringstream ss;
-  ss << base_monthly_payment << " + (" << amount_ << " - "
-     << base_monthly_payment << " * (N - 1)) * " << monthly_rate;
-  diff_monthly_payment_ = ss.str();
+  diff_monthly_payment_ = double_to_precised_string(base_monthly_payment) +
+                          " + (" + double_to_precised_string(amount_) + " - " +
+                          double_to_precised_string(base_monthly_payment) +
+                          " * (N - 1)) * " +
+                          double_to_precised_string(monthly_rate);
 }
 
 double CreditModel::get_annuity_monthly_payment() const noexcept {

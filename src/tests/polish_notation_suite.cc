@@ -21,18 +21,18 @@ TEST(polish_notation_suite, wrong_polish) {
 TEST(polish_notation_suite, order_test_1) {
   test_correct_notation(
       "12 + 12 / 1 ^ 5",
-      {"12.000000", "12.000000", "1.000000", "5.000000", "^", "/", "+"});
+      {"12.0000000", "12.0000000", "1.0000000", "5.0000000", "^", "/", "+"});
 }
 
 TEST(polish_notation_suite, order_test_2) {
-  test_correct_notation("12^(1+1) + 3", {"12.000000", "1.000000", "1.000000",
-                                         "+", "^", "3.000000", "+"});
+  test_correct_notation("12^(1+1) + 3", {"12.0000000", "1.0000000", "1.0000000",
+                                         "+", "^", "3.0000000", "+"});
 }
 
 TEST(polish_notation_suite, order_test_3) {
   test_correct_notation(
       "sin(cos(12 + log(5^3)))",
-      {"12.000000", "5.000000", "3.000000", "^", "log", "+", "cos", "sin"});
+      {"12.0000000", "5.0000000", "3.0000000", "^", "log", "+", "cos", "sin"});
 }
 
 }  // namespace s21

@@ -58,7 +58,7 @@ double to_double(const std::string& str) {
   try {
     res = std::stod(str, &ptr);
   } catch (std::invalid_argument& e) {
-    throw std::logic_error("Conversion error");
+    throw std::logic_error("Conversion error!");
   }
   if (ptr != str.size()) {
     throw std::logic_error("Conversion error!");
@@ -66,4 +66,11 @@ double to_double(const std::string& str) {
 
   return res;
 }
+
+std::string double_to_precised_string(double val) noexcept {
+  std::stringstream ss;
+  ss << std::setprecision(kDefaultPrecision) << std::fixed << val;
+  return ss.str();
+}
+
 }  // namespace s21

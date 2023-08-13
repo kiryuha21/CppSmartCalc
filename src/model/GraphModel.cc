@@ -57,7 +57,7 @@ void GraphModel::generate_plot_image() const {
      << "set xrange [" << min_x_ << ":" << max_x_ << "]\n"
      << "set yrange [" << min_y_ << ":" << max_y_ << "]\n"
      << "plot \"" << kPointsFileName << "\" title \"" << function_ << " "
-     << "with scale " << std::setprecision(6) << std::fixed
+     << "with scale " << std::setprecision(7) << std::fixed
      << (max_y_ - min_y_) / (max_x_ - min_x_) << "\" ps 0.7\n";
 }
 

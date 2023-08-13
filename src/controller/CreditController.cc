@@ -21,7 +21,7 @@ void CreditController::calculate_differentiated(const std::string& amount,
 }
 
 std::string CreditController::get_annuity_monthly_payment() {
-  return std::to_string(model_->get_annuity_monthly_payment());
+  return double_to_precised_string(model_->get_annuity_monthly_payment());
 }
 
 std::string CreditController::get_differentiated_monthly_payment() {
@@ -29,10 +29,10 @@ std::string CreditController::get_differentiated_monthly_payment() {
 }
 
 std::string CreditController::get_total_payment() {
-  return std::to_string(model_->get_total_payment());
+  return double_to_precised_string(model_->get_total_payment());
 }
 
 std::string CreditController::get_overpayment() {
-  return std::to_string(model_->get_overpayment());
+  return double_to_precised_string(model_->get_overpayment());
 }
 }  // namespace s21

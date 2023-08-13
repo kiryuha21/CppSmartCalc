@@ -2,8 +2,6 @@
 #define CPP3_SMARTCALC_V2_0_1_CREDITMODEL_H
 
 #include <cmath>
-#include <sstream>
-#include <string>
 
 #include "utils.h"
 

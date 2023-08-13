@@ -1,7 +1,5 @@
 #include "EvaluationModel.h"
 
-#include <iostream>
-
 namespace s21 {
 bool EvaluationModel::is_unary() const noexcept {
   return lexems_.empty() || lexems_.back() == "(";
@@ -20,7 +18,7 @@ size_t EvaluationModel::handle_lexem(const std::string& line, size_t index) {
   if (isdigit(line[index]) || line[index] == '.') {
     size_t ptr = 0;
     double num = std::stod(line.c_str() + index, &ptr);
-    lexems_.emplace_back(std::to_string(num));
+    lexems_.emplace_back(double_to_precised_string(num));
     return ptr;
   }
 
