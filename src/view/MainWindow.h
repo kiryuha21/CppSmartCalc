@@ -14,10 +14,10 @@ class MainWindow : public Gtk::Window {
   ~MainWindow() override;
 
  private:
-  void on_credit_calc_button_clicked();
-  void on_deposit_calc_button_clicked();
-  void on_graph_button_clicked();
-  bool on_entry_edited(GdkEventKey *key_event);
+  void on_credit_calc_button_clicked() const noexcept;
+  void on_deposit_calc_button_clicked() const noexcept;
+  void on_graph_button_clicked() const noexcept;
+  bool on_entry_edited(GdkEventKey *key_event) const noexcept;
 
   Glib::RefPtr<Gtk::Builder> builder_;
 

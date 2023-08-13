@@ -26,19 +26,19 @@ MainWindow::MainWindow(BaseObjectType* obj,
 
 MainWindow::~MainWindow() { delete controller_; }
 
-void MainWindow::on_credit_calc_button_clicked() {
+void MainWindow::on_credit_calc_button_clicked() const noexcept {
   CreditView* credit = nullptr;
   auto builder = Gtk::Builder::create_from_file("ui/credit.ui");
   builder->get_widget_derived("credit_window", credit);
 }
 
-void MainWindow::on_deposit_calc_button_clicked() {
+void MainWindow::on_deposit_calc_button_clicked() const noexcept {
   DepositView* deposit = nullptr;
   auto builder = Gtk::Builder::create_from_file("ui/deposit.ui");
   builder->get_widget_derived("deposit_window", deposit);
 }
 
-void MainWindow::on_graph_button_clicked() {
+void MainWindow::on_graph_button_clicked() const noexcept {
   std::string raw_input = expression_input_->get_text();
   try {
     controller_->evaluate(raw_input, "0");
@@ -51,7 +51,7 @@ void MainWindow::on_graph_button_clicked() {
   }
 }
 
-bool MainWindow::on_entry_edited(GdkEventKey* key_event) {
+bool MainWindow::on_entry_edited(GdkEventKey* key_event) const noexcept {
   if (key_event->keyval != GDK_KEY_equal) {
     return true;
   }
@@ -62,7 +62,7 @@ bool MainWindow::on_entry_edited(GdkEventKey* key_event) {
 
     double res =
         controller_->evaluate(pure_expression, variable_input_->get_text());
-    result_view_->get_buffer()->set_text(double_to_precised_string(res));
+    result_view_->get_buffer()->set_text(to_precised_string(res));
   } catch (std::logic_error& e) {
     result_view_->get_buffer()->set_text(e.what());
   }

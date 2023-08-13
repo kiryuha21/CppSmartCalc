@@ -24,13 +24,14 @@ GraphView::GraphView(BaseObjectType* obj,
 
 GraphView::~GraphView() { delete graph_controller_; }
 
-void GraphView::on_plot_button_clicked() {
+void GraphView::on_plot_button_clicked() const noexcept {
   try {
     graph_controller_->draw_plot_image(
         min_x_entry_->get_text(), max_x_entry_->get_text(),
         min_y_entry_->get_text(), max_y_entry_->get_text());
   } catch (std::logic_error& e) {
     graph_label_->set_text(e.what());
+    return;
   }
   graph_image_->set(kGraphFileName);
   graph_image_->queue_draw();

@@ -26,9 +26,9 @@ BUILD_PATH = build
 
 CLANG_FORMAT = clang-format
 
-.PHONY: all install uninstall test clean style valgrind $(CLANG_FORMAT)
+.PHONY: all install uninstall tests clean style valgrind $(CLANG_FORMAT)
 
-all: test build run dvi dist
+all: tests run dvi dist
 
 install: build
 	install ./$(TARGET_PATH)/$(BUILD_TARGET) /usr/local/bin
@@ -57,7 +57,7 @@ build: style build_path
 run: build
 	./$(TARGET_PATH)/$(BUILD_TARGET)
 
-test: style build_path
+tests: style build_path
 	$(CC) $(TEST_FILES) -o $(TARGET_PATH)/$(TEST_TARGET) $(GTEST_LIBS) $(BOOST_LIBS)
 	./$(TARGET_PATH)/$(TEST_TARGET)
 

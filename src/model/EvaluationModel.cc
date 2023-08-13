@@ -18,7 +18,7 @@ size_t EvaluationModel::handle_lexem(const std::string& line, size_t index) {
   if (isdigit(line[index]) || line[index] == '.') {
     size_t ptr = 0;
     double num = std::stod(line.c_str() + index, &ptr);
-    lexems_.emplace_back(double_to_precised_string(num));
+    lexems_.emplace_back(to_precised_string(num));
     return ptr;
   }
 
@@ -48,7 +48,7 @@ std::list<std::string> EvaluationModel::parse_line(const std::string& line) {
 }
 
 void EvaluationModel::handle_binary(std::stack<std::string>& stack,
-                                    const std::string& lexem) {
+                                    const std::string& lexem) noexcept {
   while (!stack.empty() && (is_prefix(stack.top()) ||
                             get_priority(stack.top()) >= get_priority(lexem))) {
     polished_.push_back(stack.top());
@@ -103,7 +103,7 @@ double EvaluationModel::parse_variable(const std::string& str_x) const {
 }
 
 double EvaluationModel::apply_binary(std::stack<double>& stack,
-                                     const std::string& lexem) {
+                                     const std::string& lexem) noexcept {
   double result;
 
   double first = stack.top();
@@ -129,7 +129,7 @@ double EvaluationModel::apply_binary(std::stack<double>& stack,
 }
 
 double EvaluationModel::apply_prefix(std::stack<double>& stack,
-                                     const std::string& lexem) {
+                                     const std::string& lexem) noexcept {
   double result;
 
   double first = stack.top();

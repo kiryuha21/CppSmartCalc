@@ -17,9 +17,10 @@ constexpr auto kGraphFileName = "plot.png";
 
 class GraphModel {
  public:
-  explicit GraphModel(EvaluationController* eval_controller,
-                      const std::string& function, const int width,
-                      const int height);
+  GraphModel(EvaluationController* eval_controller, const std::string& function,
+             const int width, const int height);
+  ~GraphModel() = default;
+
   void generate_plot_image() const;
   void parse_limits(const std::string& min_x, const std::string& max_x,
                     const std::string& min_y, const std::string& max_y);

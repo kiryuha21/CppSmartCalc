@@ -22,7 +22,7 @@ CreditView::CreditView(BaseObjectType* obj,
 
 CreditView::~CreditView() { delete controller_; }
 
-void CreditView::on_calculate_button_clicked() {
+void CreditView::on_calculate_button_clicked() const noexcept {
   std::string amount = amount_entry_->get_text();
   std::string term = term_entry_->get_text();
   std::string rate = rate_entry_->get_text();

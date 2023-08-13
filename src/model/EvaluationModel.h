@@ -12,21 +12,25 @@
 namespace s21 {
 class EvaluationModel {
  public:
+  EvaluationModel() = default;
+  ~EvaluationModel() = default;
+
   std::list<std::string> parse_line(const std::string& line);
   std::list<std::string> parse_to_polish();
   double apply_polish(const std::string& str_x) const;
 
  private:
-  [[nodiscard]] bool is_unary() const noexcept;
+  bool is_unary() const noexcept;
   size_t handle_lexem(const std::string& line, size_t index);
 
-  void handle_binary(std::stack<std::string>& stack, const std::string& lexem);
+  void handle_binary(std::stack<std::string>& stack,
+                     const std::string& lexem) noexcept;
 
-  [[nodiscard]] double parse_variable(const std::string& str_x) const;
+  double parse_variable(const std::string& str_x) const;
   static double apply_binary(std::stack<double>& stack,
-                             const std::string& lexem);
+                             const std::string& lexem) noexcept;
   static double apply_prefix(std::stack<double>& stack,
-                             const std::string& lexem);
+                             const std::string& lexem) noexcept;
 
   std::list<std::string> lexems_ = {};
   std::list<std::string> polished_ = {};

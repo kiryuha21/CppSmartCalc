@@ -7,6 +7,7 @@ namespace s21 {
 class DepositView : public Gtk::Window {
  public:
   DepositView(BaseObjectType* obj, Glib::RefPtr<Gtk::Builder> const& builder);
+  ~DepositView() = default;
 
  private:
   Glib::RefPtr<Gtk::Builder> builder_;

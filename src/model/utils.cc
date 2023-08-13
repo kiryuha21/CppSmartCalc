@@ -67,7 +67,7 @@ double to_double(const std::string& str) {
   return res;
 }
 
-std::string double_to_precised_string(double val) noexcept {
+std::string to_precised_string(double val) noexcept {
   std::stringstream ss;
   ss << std::setprecision(kDefaultPrecision) << std::fixed << val;
   return ss.str();

@@ -20,8 +20,9 @@ bool is_num(const std::string& lexem) noexcept;
 
 bool has_prefix(const std::string& str, const std::string& prefix) noexcept;
 int get_priority(const std::string& lexem) noexcept;
+
 double to_double(const std::string& str);
-std::string double_to_precised_string(double val) noexcept;
+std::string to_precised_string(double val) noexcept;
 
 }  // namespace s21
 

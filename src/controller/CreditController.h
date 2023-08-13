@@ -10,14 +10,14 @@ class CreditController {
   ~CreditController();
 
   void calculate_annuity(const std::string& amount, const std::string& term,
-                         const std::string& rate);
+                         const std::string& rate) const;
   void calculate_differentiated(const std::string& amount,
                                 const std::string& term,
-                                const std::string& rate);
-  std::string get_annuity_monthly_payment();
-  std::string get_differentiated_monthly_payment();
-  std::string get_total_payment();
-  std::string get_overpayment();
+                                const std::string& rate) const;
+  std::string get_annuity_monthly_payment() const noexcept;
+  std::string get_differentiated_monthly_payment() const noexcept;
+  std::string get_total_payment() const noexcept;
+  std::string get_overpayment() const noexcept;
 
  private:
   CreditModel* model_ = nullptr;

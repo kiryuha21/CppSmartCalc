@@ -8,6 +8,9 @@
 namespace s21 {
 class CreditModel {
  public:
+  CreditModel() = default;
+  ~CreditModel() = default;
+
   void validate_input(const std::string& amount, const std::string& term,
                       const std::string& rate);
   void calculate_annuity() noexcept;

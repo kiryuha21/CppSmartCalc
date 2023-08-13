@@ -15,7 +15,7 @@ class GraphView : public Gtk::Window {
   ~GraphView() override;
 
  private:
-  void on_plot_button_clicked();
+  void on_plot_button_clicked() const noexcept;
 
   Glib::RefPtr<Gtk::Builder> builder_;
   std::string expression_;

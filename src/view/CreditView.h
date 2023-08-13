@@ -12,7 +12,7 @@ class CreditView : public Gtk::Window {
   ~CreditView() override;
 
  private:
-  void on_calculate_button_clicked();
+  void on_calculate_button_clicked() const noexcept;
 
   Glib::RefPtr<Gtk::Builder> builder_;
   CreditController* controller_ = nullptr;
