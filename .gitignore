@@ -1,3 +1,7 @@
+# JetBrains generics
+.idea
+cmake-build-debug
+
 # Prerequisites
 *.d
 
